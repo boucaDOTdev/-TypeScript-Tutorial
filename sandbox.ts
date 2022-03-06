@@ -1,11 +1,36 @@
-const character = "luigi"
+//arrays
+let names = ["luigi", "mario", "yoshi"]
 
-console.log(character)
+names.push("toad")
+//names.push(3)
+//names[0] = 3
 
-const inputs = document.querySelectorAll("input")
+let numbers = [10, 20, 30, 40]
 
-console.log(inputs)
+numbers.push(25)
+//numbers.push("alex")
+//numbers[1] = "alex"
 
-inputs.forEach((input) => {
-  console.log(input)
-})
+let mixed = ["ken", 4, "chun-li", 8, 9]
+
+mixed.push("ryu")
+mixed.push(10)
+mixed[0] = 3
+
+//objects
+let ninja = {
+  name: "mario",
+  belt: "black",
+  age: 30,
+}
+
+ninja.age = 40
+ninja.name = "ryu"
+//ninja.age = "30"
+//ninja.skills = ["fighing", "sneaking"]
+
+ninja = {
+  name: "yoshi",
+  belt: "orange",
+  age: 40,
+}
