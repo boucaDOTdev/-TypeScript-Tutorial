@@ -1,57 +1,56 @@
-import { Invoice } from "./classes/invoice.js"
-import { ListTemplate } from "./classes/ListTemolate.js"
-import { Payment } from "./classes/Payment.js"
-import { HasFormatter } from "./interfaces/HasFormatter.js"
+import { Invoice } from './classes/invoice.js'
+import { ListTemplate } from './classes/ListTemolate.js'
+import { Payment } from './classes/Payment.js'
+import { HasFormatter } from './interfaces/HasFormatter.js'
 
-const form = document.querySelector(".new-item-form") as HTMLFormElement
+const form = document.querySelector('.new-item-form') as HTMLFormElement
 
 //inputs
-const type = document.querySelector("#type") as HTMLSelectElement
-const tofrom = document.querySelector("#tofrom") as HTMLInputElement
-const details = document.querySelector("#details") as HTMLInputElement
-const amount = document.querySelector("#amount") as HTMLInputElement
+const type = document.querySelector('#type') as HTMLSelectElement
+const tofrom = document.querySelector('#tofrom') as HTMLInputElement
+const details = document.querySelector('#details') as HTMLInputElement
+const amount = document.querySelector('#amount') as HTMLInputElement
 
-const ul = document.querySelector("ul")!
+const ul = document.querySelector('ul')!
 const list = new ListTemplate(ul)
 
-form.addEventListener("submit", (e: Event) => {
+form.addEventListener('submit', (e: Event) => {
   e.preventDefault()
   let doc: HasFormatter
-  if (type.value === "invoice") {
+  if (type.value === 'invoice') {
     doc = new Invoice(tofrom.value, details.value, amount.valueAsNumber)
   } else {
     doc = new Payment(tofrom.value, details.value, amount.valueAsNumber)
   }
-  list.render(doc, type.value, "end")
+  list.render(doc, type.value, 'end')
 })
 
-//generics
+//ENUMS
 
-const addUID = <T extends object>(obj: T) => {
-  let uid = Math.floor(Math.random() * 100)
-  return { uid, ...obj }
+enum ResourceType {
+  BOOK,
+  AUTHOR,
+  FILM,
+  DIRECTOR,
+  PERSON,
 }
-
-let docOne = addUID({ name: "yoshi", age: 40 })
-
-console.log(docOne.name)
 
 interface Resource<T> {
   uid: number
-  resourceName: string
+  resourceName: ResourceType
   data: T
 }
 
-const docThree: Resource<object> = {
+const docOne: Resource<object> = {
   uid: 1,
-  resourceName: "person",
-  data: { name: "alex" },
+  resourceName: ResourceType.BOOK,
+  data: { title: 'name of the wind' },
 }
 
-const docFour: Resource<string[]> = {
+const docTwo: Resource<object> = {
   uid: 2,
-  resourceName: "shopping List",
-  data: ["bread", "milk", "toilet paper"],
+  resourceName: ResourceType.PERSON,
+  data: { name: 'yoshi' },
 }
 
-console.log(docThree, docFour)
+console.log(docOne, docTwo)
