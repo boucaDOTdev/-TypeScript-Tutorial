@@ -16,41 +16,28 @@ const list = new ListTemplate(ul)
 
 form.addEventListener('submit', (e: Event) => {
   e.preventDefault()
+
+  let values: [string, string, number]
+  values = [tofrom.value, details.value, amount.valueAsNumber]
+
   let doc: HasFormatter
   if (type.value === 'invoice') {
-    doc = new Invoice(tofrom.value, details.value, amount.valueAsNumber)
+    doc = new Invoice(...values)
   } else {
-    doc = new Payment(tofrom.value, details.value, amount.valueAsNumber)
+    doc = new Payment(...values)
   }
   list.render(doc, type.value, 'end')
 })
 
-//ENUMS
+// tuples
+let arr = ['ryu', 25, true]
+arr[0] = false
+arr[1] = 'yoshi'
+arr = [30, false, 'yoshi']
 
-enum ResourceType {
-  BOOK,
-  AUTHOR,
-  FILM,
-  DIRECTOR,
-  PERSON,
-}
+let tup: [string, number, boolean] = ['ryu', 25, true]
+tup[0] = 'ken'
+tup[1] = 30
 
-interface Resource<T> {
-  uid: number
-  resourceName: ResourceType
-  data: T
-}
-
-const docOne: Resource<object> = {
-  uid: 1,
-  resourceName: ResourceType.BOOK,
-  data: { title: 'name of the wind' },
-}
-
-const docTwo: Resource<object> = {
-  uid: 2,
-  resourceName: ResourceType.PERSON,
-  data: { name: 'yoshi' },
-}
-
-console.log(docOne, docTwo)
+// let student: [string, number]
+// student = ['chun-li', 2342]
